@@ -1,9 +1,15 @@
-
+```php
 @extends('layout')
 
 @section('content')
 
 <h1>Student Details</h1>
+
+@if (session('status'))
+    <p style="color: green; padding: 10px;">
+        {{ session('status') }}
+    </p>
+@endif
 
 <p><strong>Roll Number:</strong> {{ $student->roll_no }}</p>
 
@@ -20,3 +26,4 @@
 <a href="{{ route('students.index') }}">Back to Student List</a>
 
 @endsection
+

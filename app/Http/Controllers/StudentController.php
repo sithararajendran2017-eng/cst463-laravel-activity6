@@ -19,33 +19,34 @@ class StudentController extends Controller
         return view('students.create');
     }
 
-    // Save a new student
-    public function store(Request $request)
-    {
-       $validated = $request->validate([
-    'roll_no' => 'required|unique:students,roll_no',
-    'name' => 'required',
-    'email' => 'required|email',
-    'department' => 'nullable',
-    'semester' => 'nullable|integer',
-    'cgpa' => 'nullable|numeric'
-        ]);
+    // Save a new student 
+       public function store(Request $request)
+{
+    $validated = $request->validate([
+        'roll_no' => 'required',
+        'name' => 'required',
+        'email' => 'required|email',
+        'department' => 'nullable',
+        'semester' => 'nullable|integer',
+        'cgpa' => 'nullable|numeric'
+    ]);
 
-        $student = new Student();
-        $student->roll_no = $validated['roll_no'];
-        $student->name = $validated['name'];
-        $student->email = $validated['email'];
-        $student->department = $validated['department'];
-        $student->semester = $validated['semester'];
-        $student->cgpa = $validated['cgpa'];
+    $student = Student::updateOrCreate(
+        ['roll_no' => $validated['roll_no']],
+        [
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'department' => $validated['department'] ?? '',
+            'semester' => $validated['semester'] ?? 1,
+            'cgpa' => $validated['cgpa'] ?? 0
+        ]
+    );
 
-        $student->save();
-
-        return redirect()->route('students.index')
-            ->with('status', 'Student saved successfully!');
-    }
-
-    // Display one student
+    return redirect()
+        ->route('students.show', $student)
+        ->with('status', 'Student added.');
+}
+ // Display one student
     public function show(Student $student)
     {
         return view('students.show', compact('student'));
