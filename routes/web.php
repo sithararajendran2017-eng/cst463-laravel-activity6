@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\StudentController;
@@ -20,6 +21,8 @@ Route::get('/about', [PageController::class, 'about']);
 
 Route::resource('students', StudentController::class);
 
-Route::get('/roll/{your_roll}', function (Student $your_roll) {
-    return "Welcome " . $your_roll->name;
+// Part C: Explicit Route Model Binding
+
+Route::get('/roll/{roll}', function (Student $roll) {
+    return "Welcome " . $roll->name;
 });

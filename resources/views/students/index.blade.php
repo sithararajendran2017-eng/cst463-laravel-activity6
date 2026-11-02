@@ -1,16 +1,19 @@
+
 @extends('layout')
 
 @section('content')
 
 <h1>Student List</h1>
 
-<a href="{{ route('students.create') }}">Add Student</a>
-
-@if(session('status'))
-    <p>{{ session('status') }}</p>
+@if (session('status'))
+    <div style="color: green; padding: 10px; margin-bottom: 10px;">
+        {{ session('status') }}
+    </div>
 @endif
 
-@foreach($students as $student)
+<a href="{{ route('students.create') }}">Add Student</a>
+
+@foreach ($students as $student)
     <p>
         Roll No: {{ $student->roll_no }} |
         Name: {{ $student->name }} |
