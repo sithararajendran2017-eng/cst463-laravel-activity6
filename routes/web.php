@@ -22,13 +22,7 @@ Route::get('/about', [PageController::class, 'about']);
 Route::resource('students', StudentController::class);
 
 // Part C: Explicit Route Model Binding
-Route::get('/roll/{roll}', function ($roll) {
-
-    if ($roll instanceof Student) {
-        $student = $roll;
-    } else {
-        $student = Student::where('roll_no', $roll)->firstOrFail();
-    }
-
-    return "Welcome " . $student->name;
+Route::get('/roll/{roll}', function (Student $roll) {
+    return "Welcome " . $roll->name .
+           ". Roll Number: " . $roll->roll_no;
 });
