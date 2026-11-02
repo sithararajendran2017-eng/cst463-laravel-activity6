@@ -23,6 +23,6 @@ Route::resource('students', StudentController::class);
 
 // Part C: Explicit Route Model Binding
 
-Route::get('/roll/{roll}', function (Student $roll) {
+Route::get('/roll/{roll}', function ($roll) {
     return "Welcome " . $roll->name;
 });
