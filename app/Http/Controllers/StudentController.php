@@ -22,13 +22,13 @@ class StudentController extends Controller
     // Save a new student
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'roll_no' => 'required|unique:students,roll_no',
-            'name' => 'required',
-            'email' => 'required|email',
-            'department' => 'required',
-            'semester' => 'required|integer',
-            'cgpa' => 'required|numeric'
+       $validated = $request->validate([
+    'roll_no' => 'required|unique:students,roll_no',
+    'name' => 'required',
+    'email' => 'required|email',
+    'department' => 'nullable',
+    'semester' => 'nullable|integer',
+    'cgpa' => 'nullable|numeric'
         ]);
 
         $student = new Student();
